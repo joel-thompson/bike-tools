@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import stackToSpacers from "../utils/stackToSpacers";
+import { toast } from "sonner";
 
 export function StackSpacerCalculator() {
   const [headAngle, setHeadAngle] = useState("");
@@ -10,6 +11,9 @@ export function StackSpacerCalculator() {
 
   const handleCalculate = () => {
     try {
+      if (!headAngle || !stackDelta) {
+        throw new Error("Please fill in both fields");
+      }
       const calc = stackToSpacers({
         headAngle: Number(headAngle),
         stackDelta: Number(stackDelta),
@@ -17,7 +21,11 @@ export function StackSpacerCalculator() {
       setResult(calc);
     } catch (error) {
       console.error(error);
-      // TODO: show error to user
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "An error occurred while calculating"
+      );
     }
   };
 
@@ -50,8 +58,14 @@ export function StackSpacerCalculator() {
       </div>
 
       <div className="flex gap-2">
-        <Button onClick={handleCalculate}>Calculate</Button>
-        <Button onClick={handleReset} variant="outline">
+        <Button onClick={handleCalculate} disabled={!headAngle || !stackDelta}>
+          Calculate
+        </Button>
+        <Button
+          onClick={handleReset}
+          variant="outline"
+          disabled={!headAngle && !stackDelta}
+        >
           Reset
         </Button>
       </div>
