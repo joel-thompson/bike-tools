@@ -53,10 +53,11 @@ const stackToSpacers = ({
   const angleInRadians = (headAngle * Math.PI) / 180;
 
   // Calculate spacersDelta using sin(headAngle) = stackDelta/spacersDelta
-  const spacersDelta = Math.abs(stackDelta / Math.sin(angleInRadians));
+  // For negative stackDelta, spacersDelta should also be negative
+  const spacersDelta = stackDelta / Math.sin(angleInRadians);
 
   // Calculate reachDelta using cos(headAngle) = reachDelta/spacersDelta
-  // Multiply by -1 since positive spacersDelta results in negative reachDelta
+  // The sign of reachDelta should be opposite of spacersDelta
   const reachDelta = -1 * spacersDelta * Math.cos(angleInRadians);
 
   return {

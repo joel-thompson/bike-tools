@@ -17,8 +17,14 @@ export function StackSpacerCalculator() {
       setResult(calc);
     } catch (error) {
       console.error(error);
-      // In a real app, we'd want to show this error to the user
+      // TODO: show error to user
     }
+  };
+
+  const handleReset = () => {
+    setHeadAngle("");
+    setStackDelta("");
+    setResult({ spacersDelta: 0, reachDelta: 0 });
   };
 
   return (
@@ -43,7 +49,12 @@ export function StackSpacerCalculator() {
         />
       </div>
 
-      <Button onClick={handleCalculate}>Calculate</Button>
+      <div className="flex gap-2">
+        <Button onClick={handleCalculate}>Calculate</Button>
+        <Button onClick={handleReset} variant="outline">
+          Reset
+        </Button>
+      </div>
 
       <div className="text-left">
         <p>Required spacer change: {result.spacersDelta}mm</p>
