@@ -8,9 +8,10 @@ export const Route = createRootRoute({
         <Link to="/" className="hover:text-blue-600">
           Home
         </Link>
+
         <span className="mx-4 text-gray-300">|</span>
-        <Link to="/about" className="hover:text-blue-600">
-          About
+        <Link to="/spacer-calculator" className="hover:text-blue-600">
+          Spacer Calculator
         </Link>
       </nav>
       <Outlet />
