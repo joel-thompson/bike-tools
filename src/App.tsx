@@ -1,17 +1,11 @@
-import { useState } from "react";
 import "./App.css";
-import { Button } from "./components/ui/button";
+import { StackSpacerCalculator } from "./components/StackSpacerCalculator";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div className="flex flex-col items-center justify-center min-h-svh">
-        <Button onClick={() => setCount((count) => count + 1)}>Click me</Button>
-        <p>Count: {count}</p>
-      </div>
-    </>
+    <div className="flex flex-col min-h-svh p-4">
+      <StackSpacerCalculator />
+    </div>
   );
 }
 
