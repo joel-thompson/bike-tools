@@ -1,0 +1,292 @@
+{
+  "bikes": [
+    {
+      "id": "bike1",
+      "name": "Transition Spire XL",
+      "stack": 637,
+      "reach": 510,
+      "headAngle": 63,
+      "chainstayLength": 452,
+      "wheelbase": 1322
+    },
+    {
+      "id": "Transition-Spire-L",
+      "name": "Transition Spire L",
+      "stack": 628,
+      "reach": 485,
+      "headAngle": 63,
+      "chainstayLength": 446,
+      "wheelbase": 1287
+    },
+    {
+      "id": "Transition-Spire-M",
+      "name": "Transition Spire M",
+      "stack": 619,
+      "reach": 460,
+      "headAngle": 63,
+      "chainstayLength": 446,
+      "wheelbase": 1257
+    },
+    {
+      "id": "Forbidden-Dreadnaught-XL-29",
+      "name": "Forbidden Dreadnaught XL 29",
+      "stack": 655,
+      "reach": 495,
+      "headAngle": 63.5,
+      "chainstayLength": 475,
+      "wheelbase": 1330.1
+    },
+    {
+      "id": "Forbidden-Dreadnaught-XL-MX",
+      "name": "Forbidden Dreadnaught XL MX",
+      "stack": 659,
+      "reach": 491,
+      "headAngle": 63.1,
+      "chainstayLength": 475,
+      "wheelbase": 1330.0
+    },
+    {
+      "id": "Forbidden-Dreadnaught-L-29",
+      "name": "Forbidden Dreadnaught L 29",
+      "stack": 642,
+      "reach": 475,
+      "headAngle": 63.5,
+      "chainstayLength": 460,
+      "wheelbase": 1288.9
+    },
+    {
+      "id": "Forbidden-Dreadnaught-L-MX",
+      "name": "Forbidden Dreadnaught L MX",
+      "stack": 645,
+      "reach": 471,
+      "headAngle": 63.1,
+      "chainstayLength": 460,
+      "wheelbase": 1288.8
+    },
+    {
+      "id": "Forbidden-Dreadnaught-M-29",
+      "name": "Forbidden Dreadnaught M 29",
+      "stack": 628,
+      "reach": 455,
+      "headAngle": 63.5,
+      "chainstayLength": 446,
+      "wheelbase": 1247.7
+    },
+    {
+      "id": "Forbidden-Dreadnaught-M-MX",
+      "name": "Forbidden Dreadnaught M MX",
+      "stack": 632,
+      "reach": 450,
+      "headAngle": 63.1,
+      "chainstayLength": 446,
+      "wheelbase": 1247.6
+    },
+    {
+      "id": "Santa-Cruz-Nomad-XXL",
+      "name": "Santa Cruz Nomad XXL",
+      "stack": 672,
+      "reach": 517,
+      "headAngle": 63.5,
+      "chainstayLength": 451,
+      "wheelbase": 1337
+    },
+    {
+      "id": "Santa-Cruz-Nomad-XL",
+      "name": "Santa Cruz Nomad XL",
+      "stack": 658,
+      "reach": 492,
+      "headAngle": 63.5,
+      "chainstayLength": 447,
+      "wheelbase": 1302
+    },
+    {
+      "id": "Santa-Cruz-Nomad-L",
+      "name": "Santa Cruz Nomad L",
+      "stack": 640,
+      "reach": 472,
+      "headAngle": 63.5,
+      "chainstayLength": 444,
+      "wheelbase": 1270
+    },
+    {
+      "id": "Santa-Cruz-Nomad-M",
+      "name": "Santa Cruz Nomad M",
+      "stack": 627,
+      "reach": 452,
+      "headAngle": 63.5,
+      "chainstayLength": 441,
+      "wheelbase": 1240
+    },
+    {
+      "id": "Santa-Cruz-Nomad-S",
+      "name": "Santa Cruz Nomad S",
+      "stack": 618,
+      "reach": 427,
+      "headAngle": 63.5,
+      "chainstayLength": 440,
+      "wheelbase": 1209
+    },
+    {
+      "id": "Santa-Cruz-Megatower-XXL",
+      "name": "Santa Cruz Megatower XXL",
+      "stack": 672,
+      "reach": 517,
+      "headAngle": 63.5,
+      "chainstayLength": 448,
+      "wheelbase": 1334
+    },
+    {
+      "id": "Santa-Cruz-Megatower-XL",
+      "name": "Santa Cruz Megatower XL",
+      "stack": 658,
+      "reach": 492,
+      "headAngle": 63.5,
+      "chainstayLength": 444,
+      "wheelbase": 1298
+    },
+    {
+      "id": "Santa-Cruz-Megatower-L",
+      "name": "Santa Cruz Megatower L",
+      "stack": 640,
+      "reach": 472,
+      "headAngle": 63.5,
+      "chainstayLength": 441,
+      "wheelbase": 1266
+    },
+    {
+      "id": "Santa-Cruz-Megatower-M",
+      "name": "Santa Cruz Megatower M",
+      "stack": 627,
+      "reach": 452,
+      "headAngle": 63.5,
+      "chainstayLength": 438,
+      "wheelbase": 1237
+    },
+    {
+      "id": "Santa-Cruz-Megatower-S",
+      "name": "Santa Cruz Megatower S",
+      "stack": 618,
+      "reach": 427,
+      "headAngle": 63.5,
+      "chainstayLength": 437,
+      "wheelbase": 1206
+    },
+    {
+      "id": "Santa-Cruz-Bullit-XXL",
+      "name": "Santa Cruz Bullit XXL",
+      "stack": 670.4,
+      "reach": 515,
+      "headAngle": 64,
+      "chainstayLength": 449,
+      "wheelbase": 1327.7
+    },
+    {
+      "id": "Santa-Cruz-Bullit-XL",
+      "name": "Santa Cruz Bullit XL",
+      "stack": 648,
+      "reach": 495,
+      "headAngle": 64,
+      "chainstayLength": 449,
+      "wheelbase": 1296.7
+    },
+    {
+      "id": "Santa-Cruz-Bullit-L",
+      "name": "Santa Cruz Bullit L",
+      "stack": 630,
+      "reach": 475,
+      "headAngle": 64,
+      "chainstayLength": 449,
+      "wheelbase": 1267.9
+    },
+    {
+      "id": "Santa-Cruz-Bullit-M",
+      "name": "Santa Cruz Bullit M",
+      "stack": 621,
+      "reach": 450,
+      "headAngle": 64,
+      "chainstayLength": 449,
+      "wheelbase": 1238.5
+    },
+    {
+      "id": "Santa-Cruz-BronsonV5-XXL",
+      "name": "Santa Cruz Bronson V5 XXL",
+      "stack": 670,
+      "reach": 523,
+      "headAngle": 63.9,
+      "chainstayLength": 448,
+      "wheelbase": 1331
+    },
+    {
+      "id": "Santa-Cruz-BronsonV5-XL",
+      "name": "Santa Cruz Bronson V5 XL",
+      "stack": 661,
+      "reach": 498,
+      "headAngle": 63.9,
+      "chainstayLength": 445,
+      "wheelbase": 1299
+    },
+    {
+      "id": "Santa-Cruz-BronsonV5-L",
+      "name": "Santa Cruz Bronson V5 L",
+      "stack": 643,
+      "reach": 478,
+      "headAngle": 63.9,
+      "chainstayLength": 442,
+      "wheelbase": 1267
+    },
+    {
+      "id": "Santa-Cruz-BronsonV5-M",
+      "name": "Santa Cruz Bronson V5 M",
+      "stack": 634,
+      "reach": 457,
+      "headAngle": 63.9,
+      "chainstayLength": 439,
+      "wheelbase": 1240
+    },
+    {
+      "id": "Santa-Cruz-BronsonV5-S",
+      "name": "Santa Cruz Bronson V5 S",
+      "stack": 625,
+      "reach": 432,
+      "headAngle": 63.9,
+      "chainstayLength": 437,
+      "wheelbase": 1208
+    },
+    {
+      "id": "Santa-Cruz-Chameleon-XL",
+      "name": "Santa Cruz Chameleon XL",
+      "stack": 647.3,
+      "reach": 490,
+      "headAngle": 65.0,
+      "chainstayLength": 431,
+      "wheelbase": 1237.1
+    },
+    {
+      "id": "Santa-Cruz-Chameleon-L",
+      "name": "Santa Cruz Chameleon L",
+      "stack": 638.2,
+      "reach": 465,
+      "headAngle": 65.0,
+      "chainstayLength": 431,
+      "wheelbase": 1207.8
+    },
+    {
+      "id": "Santa-Cruz-Chameleon-M",
+      "name": "Santa Cruz Chameleon M",
+      "stack": 629.2,
+      "reach": 445,
+      "headAngle": 65.0,
+      "chainstayLength": 431,
+      "wheelbase": 1183.6
+    },
+    {
+      "id": "Santa-Cruz-Chameleon-S",
+      "name": "Santa Cruz Chameleon S",
+      "stack": 620.1,
+      "reach": 420,
+      "headAngle": 65.0,
+      "chainstayLength": 431,
+      "wheelbase": 1154.4
+    }
+  ]
+}

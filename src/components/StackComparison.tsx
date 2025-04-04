@@ -18,7 +18,6 @@ import { FaCircleInfo } from "react-icons/fa6";
 
 export function StackComparison() {
   const [bike1Stack, setBike1Stack] = useState("");
-  const [bike1HeadAngle, setBike1HeadAngle] = useState("");
 
   const [bike2Stack, setBike2Stack] = useState("");
   const [bike2HeadAngle, setBike2HeadAngle] = useState("");
@@ -31,14 +30,13 @@ export function StackComparison() {
   const handleCalculate = () => {
     try {
       // Validate all fields are filled
-      if (!bike1Stack || !bike1HeadAngle || !bike2Stack || !bike2HeadAngle) {
+      if (!bike1Stack || !bike2Stack || !bike2HeadAngle) {
         throw new Error("Please fill in all fields for both bikes");
       }
 
       // Convert all values to numbers
       const b1 = {
         stack: Number(bike1Stack),
-        headAngle: Number(bike1HeadAngle),
       };
       const b2 = {
         stack: Number(bike2Stack),
@@ -70,17 +68,14 @@ export function StackComparison() {
 
   const handleReset = () => {
     setBike1Stack("");
-    setBike1HeadAngle("");
     setBike2Stack("");
     setBike2HeadAngle("");
     setResult({ spacersDelta: 0, reachDelta: 0 });
   };
 
-  const isFormEmpty =
-    !bike1Stack && !bike1HeadAngle && !bike2Stack && !bike2HeadAngle;
+  const isFormEmpty = !bike1Stack && !bike2Stack && !bike2HeadAngle;
 
-  const isFormComplete =
-    bike1Stack && bike1HeadAngle && bike2Stack && bike2HeadAngle;
+  const isFormComplete = bike1Stack && bike2Stack && bike2HeadAngle;
 
   return (
     <div className="flex flex-col gap-6 w-full max-w-2xl">
@@ -107,16 +102,6 @@ export function StackComparison() {
               value={bike1Stack}
               onChange={(e) => setBike1Stack(e.target.value)}
               placeholder="600"
-              className="placeholder:text-muted-foreground/50"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label className="text-sm">Head Angle (degrees)</label>
-            <Input
-              type="number"
-              value={bike1HeadAngle}
-              onChange={(e) => setBike1HeadAngle(e.target.value)}
-              placeholder="64"
               className="placeholder:text-muted-foreground/50"
             />
           </div>
