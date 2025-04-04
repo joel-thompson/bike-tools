@@ -8,6 +8,13 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import stackToSpacers from "../utils/stackToSpacers";
 import { toast } from "sonner";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
+import { FaCircleInfo } from "react-icons/fa6";
 
 export function StackComparison() {
   const [bike1Stack, setBike1Stack] = useState("");
@@ -80,10 +87,19 @@ export function StackComparison() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Bike 1 */}
         <div className="flex flex-col gap-2">
-          <h3 className="font-medium">Reference Bike</h3>
-          <p className="text-sm text-muted-foreground">
-            Enter the measurements of the bike you want to match
-          </p>
+          <div className="flex items-center gap-2">
+            <h3 className="font-medium">Reference Bike</h3>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <FaCircleInfo className="h-4 w-4 text-black" />
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  <p>Enter the measurements of the bike you want to match</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
           <div className="flex flex-col gap-2">
             <label className="text-sm">Stack (mm)</label>
             <Input
@@ -108,10 +124,21 @@ export function StackComparison() {
 
         {/* Bike 2 */}
         <div className="flex flex-col gap-2">
-          <h3 className="font-medium">Bike to Adjust</h3>
-          <p className="text-sm text-muted-foreground">
-            Enter the measurements of the bike you'll add spacers to
-          </p>
+          <div className="flex items-center gap-2">
+            <h3 className="font-medium">Bike to Adjust</h3>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <FaCircleInfo className="h-4 w-4 text-black" />
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  <p>
+                    Enter the measurements of the bike you'll add spacers to
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
           <div className="flex flex-col gap-2">
             <label className="text-sm">Stack (mm)</label>
             <Input
