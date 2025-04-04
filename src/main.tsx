@@ -4,6 +4,10 @@ import "./index.css";
 import { RouterProvider } from "@tanstack/react-router";
 import { router } from "./router";
 import { Toaster } from "./components/ui/sonner";
+import { setFaviconFromIcon } from "./utils/favicon";
+
+// Set the favicon
+setFaviconFromIcon();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
