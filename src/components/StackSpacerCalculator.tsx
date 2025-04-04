@@ -44,6 +44,7 @@ export function StackSpacerCalculator() {
           value={headAngle}
           onChange={(e) => setHeadAngle(e.target.value)}
           placeholder="64"
+          className="placeholder:text-muted-foreground/50"
         />
       </div>
 
@@ -54,6 +55,7 @@ export function StackSpacerCalculator() {
           value={stackDelta}
           onChange={(e) => setStackDelta(e.target.value)}
           placeholder="10"
+          className="placeholder:text-muted-foreground/50"
         />
       </div>
 
@@ -71,8 +73,18 @@ export function StackSpacerCalculator() {
       </div>
 
       <div className="text-left">
-        <p>Required spacer change: {result.spacersDelta}mm</p>
-        <p>Resulting reach change: {result.reachDelta}mm</p>
+        {(result.spacersDelta !== 0 || result.reachDelta !== 0) && (
+          <>
+            <p>
+              Required spacer change:{" "}
+              <span className="font-bold">{result.spacersDelta}mm</span>
+            </p>
+            <p>
+              Resulting reach change:{" "}
+              <span className="font-bold">{result.reachDelta}mm</span>
+            </p>
+          </>
+        )}
       </div>
     </div>
   );

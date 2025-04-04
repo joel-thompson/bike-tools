@@ -13,6 +13,11 @@ export const Route = createRootRoute({
         <Link to="/spacer-calculator" className="hover:text-blue-600">
           Spacer Calculator
         </Link>
+
+        <span className="mx-4 text-gray-300">|</span>
+        <Link to="/stack-comparison" className="hover:text-blue-600">
+          Stack Comparison
+        </Link>
       </nav>
       <Outlet />
     </div>
