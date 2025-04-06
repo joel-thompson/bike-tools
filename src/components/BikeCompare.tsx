@@ -43,27 +43,131 @@ const BikeStats = ({ bike }: { bike: BikeDetails }) => (
   </div>
 );
 
+interface BikeSelectorProps {
+  selectedBikeId: string;
+  onBikeSelect: (bikeId: string) => void;
+  placeholder: string;
+}
+
+const BikeSelector = ({
+  selectedBikeId,
+  onBikeSelect,
+  placeholder,
+}: BikeSelectorProps) => {
+  const [open, setOpen] = React.useState(false);
+  const selectedBike = selectedBikeId ? getBikeDetails(selectedBikeId) : null;
+
+  return (
+    <div className="w-80">
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-full justify-between"
+          >
+            {selectedBike ? selectedBike.name : placeholder}
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[280px] p-0">
+          <Command
+            filter={(value, search) => {
+              const bikeItem = bikes.bikes.find((bike) => bike.id === value);
+              return bikeItem?.name.toLowerCase().includes(search.toLowerCase())
+                ? 1
+                : 0;
+            }}
+          >
+            <CommandInput placeholder="Search bikes..." />
+            <CommandList>
+              <CommandEmpty>No bike found.</CommandEmpty>
+              <CommandGroup>
+                {bikes.bikes.map((bike) => (
+                  <CommandItem
+                    key={bike.id}
+                    value={bike.id}
+                    onSelect={(currentValue) => {
+                      onBikeSelect(
+                        currentValue === selectedBikeId ? "" : currentValue
+                      );
+                      setOpen(false);
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        selectedBikeId === bike.id ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {bike.name}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+      {selectedBike && <BikeStats bike={selectedBike} />}
+    </div>
+  );
+};
+
+const getBikeDetails = (bikeId: string): BikeDetails => {
+  const bike = bikes.bikes.find((bike) => bike.id === bikeId);
+  if (!bike) {
+    throw new Error(`Bike with id ${bikeId} not found`);
+  }
+  return bike;
+};
+
+interface SpacerCalculationResultProps {
+  leftBike: BikeDetails;
+  rightBike: BikeDetails;
+  calculation: {
+    stackDelta: number;
+    spacersDelta: number;
+    reachDelta: number;
+  };
+}
+
+const SpacerCalculationResult = ({
+  leftBike,
+  rightBike,
+  calculation,
+}: SpacerCalculationResultProps) => (
+  <div className="mt-8 p-4">
+    <h3 className="font-semibold mb-2">
+      Adjusting {rightBike.name} to match {leftBike.name} stack height
+    </h3>
+    <p className="text-sm mb-1">
+      Stack difference: {calculation.stackDelta.toFixed(1)}mm
+    </p>
+    <p className="text-sm mb-1">
+      Spacer adjustment needed on {rightBike.name}:{" "}
+      {calculation.spacersDelta.toFixed(1)}mm
+    </p>
+    <p className="text-sm mb-1">
+      This will change reach by: {calculation.reachDelta.toFixed(1)}mm
+    </p>
+    <p className="text-sm">
+      Effective reach of {rightBike.name} at {leftBike.stack}mm stack height:{" "}
+      {(rightBike.reach + calculation.reachDelta).toFixed(1)}mm
+    </p>
+  </div>
+);
+
 const BikeCompare = () => {
-  const [openLeft, setOpenLeft] = React.useState(false);
-  const [openRight, setOpenRight] = React.useState(false);
   const [leftBike, setLeftBike] = React.useState<string>("");
   const [rightBike, setRightBike] = React.useState<string>("");
 
-  const getBikeDetails = (bikeId: string): BikeDetails => {
-    const bike = bikes.bikes.find((bike) => bike.id === bikeId);
-    if (!bike) {
-      throw new Error(`Bike with id ${bikeId} not found`);
-    }
-    return bike;
-  };
-
-  const leftBikeDetails = getBikeDetails(leftBike);
-  const rightBikeDetails = getBikeDetails(rightBike);
+  const leftBikeDetails = leftBike ? getBikeDetails(leftBike) : null;
+  const rightBikeDetails = rightBike ? getBikeDetails(rightBike) : null;
 
   const calculateSpacerChange = () => {
     if (!leftBikeDetails || !rightBikeDetails) return null;
 
-    // const stackDelta = rightBikeDetails.stack - leftBikeDetails.stack;
     const stackDelta = leftBikeDetails.stack - rightBikeDetails.stack;
     const result = stackToSpacers({
       headAngle: rightBikeDetails.headAngle,
@@ -80,161 +184,26 @@ const BikeCompare = () => {
     leftBike && rightBike ? calculateSpacerChange() : null;
 
   return (
-    <div className="p-4">
+    <div className="">
       <div className="flex gap-8">
-        {/* Left Bike Selector */}
-        <div className="w-80">
-          <Popover open={openLeft} onOpenChange={setOpenLeft}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={openLeft}
-                className="w-full justify-between"
-              >
-                {leftBike
-                  ? getBikeDetails(leftBike)?.name
-                  : "Select first bike..."}
-                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[280px] p-0">
-              <Command
-                filter={(value, search) => {
-                  const bikeItem = bikes.bikes.find(
-                    (bike) => bike.id === value
-                  );
-                  return bikeItem?.name
-                    .toLowerCase()
-                    .includes(search.toLowerCase())
-                    ? 1
-                    : 0;
-                }}
-              >
-                <CommandInput placeholder="Search bikes..." />
-                <CommandList>
-                  <CommandEmpty>No bike found.</CommandEmpty>
-                  <CommandGroup>
-                    {bikes.bikes.map((bike) => (
-                      <CommandItem
-                        key={bike.id}
-                        value={bike.id}
-                        onSelect={(currentValue) => {
-                          setLeftBike(
-                            currentValue === leftBike ? "" : currentValue
-                          );
-                          setOpenLeft(false);
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            leftBike === bike.id ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                        {bike.name}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
-          {leftBike && getBikeDetails(leftBike) && (
-            <BikeStats bike={getBikeDetails(leftBike)} />
-          )}
-        </div>
-
-        {/* Right Bike Selector */}
-        <div className="w-80">
-          <Popover open={openRight} onOpenChange={setOpenRight}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={openRight}
-                className="w-full justify-between"
-              >
-                {rightBike
-                  ? getBikeDetails(rightBike)?.name
-                  : "Select second bike..."}
-                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[280px] p-0">
-              <Command
-                filter={(value, search) => {
-                  const bikeItem = bikes.bikes.find(
-                    (bike) => bike.id === value
-                  );
-                  return bikeItem?.name
-                    .toLowerCase()
-                    .includes(search.toLowerCase())
-                    ? 1
-                    : 0;
-                }}
-              >
-                <CommandInput placeholder="Search bikes..." />
-                <CommandList>
-                  <CommandEmpty>No bike found.</CommandEmpty>
-                  <CommandGroup>
-                    {bikes.bikes.map((bike) => (
-                      <CommandItem
-                        key={bike.id}
-                        value={bike.id}
-                        onSelect={(currentValue) => {
-                          setRightBike(
-                            currentValue === rightBike ? "" : currentValue
-                          );
-                          setOpenRight(false);
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            rightBike === bike.id ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                        {bike.name}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
-          {rightBike && getBikeDetails(rightBike) && (
-            <BikeStats bike={getBikeDetails(rightBike)} />
-          )}
-        </div>
+        <BikeSelector
+          selectedBikeId={leftBike}
+          onBikeSelect={setLeftBike}
+          placeholder="Select first bike..."
+        />
+        <BikeSelector
+          selectedBikeId={rightBike}
+          onBikeSelect={setRightBike}
+          placeholder="Select second bike..."
+        />
       </div>
 
-      {spacerCalculation && (
-        <div className="mt-8 p-4">
-          <h3 className="font-semibold mb-2">
-            Adjusting {rightBikeDetails?.name} to match {leftBikeDetails?.name}{" "}
-            stack height
-          </h3>
-          <p className="text-sm mb-1">
-            Stack difference: {spacerCalculation.stackDelta.toFixed(1)}mm
-          </p>
-          <p className="text-sm mb-1">
-            Spacer adjustment needed on {rightBikeDetails?.name}:{" "}
-            {spacerCalculation.spacersDelta.toFixed(1)}mm
-          </p>
-          <p className="text-sm mb-1">
-            This will change reach by: {spacerCalculation.reachDelta.toFixed(1)}
-            mm
-          </p>
-          <p className="text-sm">
-            Effective reach of {rightBikeDetails?.name} at{" "}
-            {leftBikeDetails?.stack}mm stack height:{" "}
-            {(rightBikeDetails?.reach + spacerCalculation.reachDelta).toFixed(
-              1
-            )}
-            mm
-          </p>
-        </div>
+      {spacerCalculation && leftBikeDetails && rightBikeDetails && (
+        <SpacerCalculationResult
+          leftBike={leftBikeDetails}
+          rightBike={rightBikeDetails}
+          calculation={spacerCalculation}
+        />
       )}
     </div>
   );
