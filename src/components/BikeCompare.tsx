@@ -301,6 +301,11 @@ const BikeCompare = () => {
     React.useState<BikeDetails | null>(null);
   const [rightCustomBike, setRightCustomBike] =
     React.useState<BikeDetails | null>(null);
+  const [manualCalculation, setManualCalculation] = React.useState<{
+    stackDelta: number;
+    spacersDelta: number;
+    reachDelta: number;
+  } | null>(null);
 
   const leftBikeDetails =
     leftCustomBike ?? (leftBike ? getBikeDetails(leftBike) : null);
@@ -322,29 +327,74 @@ const BikeCompare = () => {
     };
   };
 
-  const spacerCalculation =
-    (leftBike || leftCustomBike) && (rightBike || rightCustomBike)
+  // Determine if we're in manual mode
+  const isManualMode = leftCustomBike !== null || rightCustomBike !== null;
+
+  // Calculate automatically only if not in manual mode
+  const autoSpacerCalculation =
+    !isManualMode && leftBikeDetails && rightBikeDetails
       ? calculateSpacerChange()
       : null;
+
+  const handleCalculate = () => {
+    if (leftBikeDetails && rightBikeDetails) {
+      setManualCalculation(calculateSpacerChange());
+    }
+  };
+
+  // Clear manual calculation when changes are made in manual mode
+  const handleBikeSelect = (bikeId: string, isLeft: boolean) => {
+    if (isLeft) {
+      setLeftBike(bikeId);
+    } else {
+      setRightBike(bikeId);
+    }
+    if (isManualMode) {
+      setManualCalculation(null);
+    }
+  };
+
+  const handleCustomBikeChange = (
+    bike: BikeDetails | null,
+    isLeft: boolean
+  ) => {
+    if (isLeft) {
+      setLeftCustomBike(bike);
+    } else {
+      setRightCustomBike(bike);
+    }
+    setManualCalculation(null);
+  };
+
+  // Use manual calculation if available, otherwise use auto calculation
+  const spacerCalculation = isManualMode
+    ? manualCalculation
+    : autoSpacerCalculation;
 
   return (
     <div className="">
       <div className="flex gap-8">
         <BikeSelector
           selectedBikeId={leftBike}
-          onBikeSelect={setLeftBike}
-          onCustomBikeChange={setLeftCustomBike}
+          onBikeSelect={(id) => handleBikeSelect(id, true)}
+          onCustomBikeChange={(bike) => handleCustomBikeChange(bike, true)}
           customBike={leftCustomBike}
           placeholder="Select first bike..."
         />
         <BikeSelector
           selectedBikeId={rightBike}
-          onBikeSelect={setRightBike}
-          onCustomBikeChange={setRightCustomBike}
+          onBikeSelect={(id) => handleBikeSelect(id, false)}
+          onCustomBikeChange={(bike) => handleCustomBikeChange(bike, false)}
           customBike={rightCustomBike}
           placeholder="Select second bike..."
         />
       </div>
+
+      {isManualMode && leftBikeDetails && rightBikeDetails && (
+        <div className="mt-4">
+          <Button onClick={handleCalculate}>Calculate</Button>
+        </div>
+      )}
 
       {spacerCalculation && leftBikeDetails && rightBikeDetails && (
         <SpacerCalculationResult
