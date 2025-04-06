@@ -1,0 +1,11 @@
+---
+description: 
+globs: bikes.json
+alwaysApply: false
+---
+The id of each entry is in the format: {make}-{model}-{size}-{option}
+
+When adding entries to bike.json maintain alphabetical order for make and model. For the size go from smallest to largest. ex:
+Santa-Cruz-Bronson-V5-M
+Santa-Cruz-Bronson-V5-L
+Santa-Cruz-Bronson-V5-XL

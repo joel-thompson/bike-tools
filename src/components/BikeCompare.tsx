@@ -212,35 +212,27 @@ const BikeCompare = () => {
       {spacerCalculation && (
         <div className="mt-8 p-4">
           <h3 className="font-semibold mb-2">
-            Stack Height Adjustment to get {rightBikeDetails?.name} to match{" "}
-            {leftBikeDetails?.name}
+            Adjusting {rightBikeDetails?.name} to match {leftBikeDetails?.name}{" "}
+            stack height
           </h3>
           <p className="text-sm mb-1">
-            Stack difference:{" "}
-            <span className="font-medium">
-              {spacerCalculation.stackDelta.toFixed(1)}mm
-            </span>
+            Stack difference: {spacerCalculation.stackDelta.toFixed(1)}mm
           </p>
           <p className="text-sm mb-1">
-            Required spacer change:{" "}
-            <span className="font-medium">
-              {spacerCalculation.spacersDelta.toFixed(1)}mm
-            </span>
+            Spacer adjustment needed on {rightBikeDetails?.name}:{" "}
+            {spacerCalculation.spacersDelta.toFixed(1)}mm
           </p>
           <p className="text-sm mb-1">
-            Resulting reach change:{" "}
-            <span className="font-medium">
-              {spacerCalculation.reachDelta.toFixed(1)}mm
-            </span>
+            This will change reach by: {spacerCalculation.reachDelta.toFixed(1)}
+            mm
           </p>
           <p className="text-sm">
-            Effective reach at matching stack:{" "}
-            <span className="font-medium">
-              {(rightBikeDetails?.reach + spacerCalculation.reachDelta).toFixed(
-                1
-              )}
-              mm
-            </span>
+            Effective reach of {rightBikeDetails?.name} at{" "}
+            {leftBikeDetails?.stack}mm stack height:{" "}
+            {(rightBikeDetails?.reach + spacerCalculation.reachDelta).toFixed(
+              1
+            )}
+            mm
           </p>
         </div>
       )}
