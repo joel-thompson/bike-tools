@@ -18,6 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import bikes from "@/bikes.json";
+import stackToSpacers from "@/utils/stackToSpacers";
 
 interface BikeDetails {
   id: string;
@@ -48,9 +49,35 @@ const BikeCompare = () => {
   const [leftBike, setLeftBike] = React.useState<string>("");
   const [rightBike, setRightBike] = React.useState<string>("");
 
-  const getBikeDetails = (bikeId: string): BikeDetails | undefined => {
-    return bikes.bikes.find((bike) => bike.id === bikeId);
+  const getBikeDetails = (bikeId: string): BikeDetails => {
+    const bike = bikes.bikes.find((bike) => bike.id === bikeId);
+    if (!bike) {
+      throw new Error(`Bike with id ${bikeId} not found`);
+    }
+    return bike;
   };
+
+  const leftBikeDetails = getBikeDetails(leftBike);
+  const rightBikeDetails = getBikeDetails(rightBike);
+
+  const calculateSpacerChange = () => {
+    if (!leftBikeDetails || !rightBikeDetails) return null;
+
+    // const stackDelta = rightBikeDetails.stack - leftBikeDetails.stack;
+    const stackDelta = leftBikeDetails.stack - rightBikeDetails.stack;
+    const result = stackToSpacers({
+      headAngle: rightBikeDetails.headAngle,
+      stackDelta: stackDelta,
+    });
+
+    return {
+      stackDelta,
+      ...result,
+    };
+  };
+
+  const spacerCalculation =
+    leftBike && rightBike ? calculateSpacerChange() : null;
 
   return (
     <div className="p-4">
@@ -114,7 +141,7 @@ const BikeCompare = () => {
             </PopoverContent>
           </Popover>
           {leftBike && getBikeDetails(leftBike) && (
-            <BikeStats bike={getBikeDetails(leftBike)!} />
+            <BikeStats bike={getBikeDetails(leftBike)} />
           )}
         </div>
 
@@ -177,10 +204,46 @@ const BikeCompare = () => {
             </PopoverContent>
           </Popover>
           {rightBike && getBikeDetails(rightBike) && (
-            <BikeStats bike={getBikeDetails(rightBike)!} />
+            <BikeStats bike={getBikeDetails(rightBike)} />
           )}
         </div>
       </div>
+
+      {spacerCalculation && (
+        <div className="mt-8 p-4">
+          <h3 className="font-semibold mb-2">
+            Stack Height Adjustment to get {rightBikeDetails?.name} to match{" "}
+            {leftBikeDetails?.name}
+          </h3>
+          <p className="text-sm mb-1">
+            Stack difference:{" "}
+            <span className="font-medium">
+              {spacerCalculation.stackDelta.toFixed(1)}mm
+            </span>
+          </p>
+          <p className="text-sm mb-1">
+            Required spacer change:{" "}
+            <span className="font-medium">
+              {spacerCalculation.spacersDelta.toFixed(1)}mm
+            </span>
+          </p>
+          <p className="text-sm mb-1">
+            Resulting reach change:{" "}
+            <span className="font-medium">
+              {spacerCalculation.reachDelta.toFixed(1)}mm
+            </span>
+          </p>
+          <p className="text-sm">
+            Effective reach at matching stack:{" "}
+            <span className="font-medium">
+              {(rightBikeDetails?.reach + spacerCalculation.reachDelta).toFixed(
+                1
+              )}
+              mm
+            </span>
+          </p>
+        </div>
+      )}
     </div>
   );
 };
