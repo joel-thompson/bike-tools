@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as StackComparisonImport } from './routes/stack-comparison'
 import { Route as SpacerCalculatorImport } from './routes/spacer-calculator'
+import { Route as BikeCompareImport } from './routes/bike-compare'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -26,6 +27,12 @@ const StackComparisonRoute = StackComparisonImport.update({
 const SpacerCalculatorRoute = SpacerCalculatorImport.update({
   id: '/spacer-calculator',
   path: '/spacer-calculator',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const BikeCompareRoute = BikeCompareImport.update({
+  id: '/bike-compare',
+  path: '/bike-compare',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -44,6 +51,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/bike-compare': {
+      id: '/bike-compare'
+      path: '/bike-compare'
+      fullPath: '/bike-compare'
+      preLoaderRoute: typeof BikeCompareImport
       parentRoute: typeof rootRoute
     }
     '/spacer-calculator': {
@@ -67,12 +81,14 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bike-compare': typeof BikeCompareRoute
   '/spacer-calculator': typeof SpacerCalculatorRoute
   '/stack-comparison': typeof StackComparisonRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bike-compare': typeof BikeCompareRoute
   '/spacer-calculator': typeof SpacerCalculatorRoute
   '/stack-comparison': typeof StackComparisonRoute
 }
@@ -80,27 +96,35 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/bike-compare': typeof BikeCompareRoute
   '/spacer-calculator': typeof SpacerCalculatorRoute
   '/stack-comparison': typeof StackComparisonRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/spacer-calculator' | '/stack-comparison'
+  fullPaths: '/' | '/bike-compare' | '/spacer-calculator' | '/stack-comparison'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/spacer-calculator' | '/stack-comparison'
-  id: '__root__' | '/' | '/spacer-calculator' | '/stack-comparison'
+  to: '/' | '/bike-compare' | '/spacer-calculator' | '/stack-comparison'
+  id:
+    | '__root__'
+    | '/'
+    | '/bike-compare'
+    | '/spacer-calculator'
+    | '/stack-comparison'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BikeCompareRoute: typeof BikeCompareRoute
   SpacerCalculatorRoute: typeof SpacerCalculatorRoute
   StackComparisonRoute: typeof StackComparisonRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BikeCompareRoute: BikeCompareRoute,
   SpacerCalculatorRoute: SpacerCalculatorRoute,
   StackComparisonRoute: StackComparisonRoute,
 }
@@ -116,12 +140,16 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/bike-compare",
         "/spacer-calculator",
         "/stack-comparison"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/bike-compare": {
+      "filePath": "bike-compare.tsx"
     },
     "/spacer-calculator": {
       "filePath": "spacer-calculator.tsx"
