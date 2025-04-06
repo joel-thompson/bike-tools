@@ -72,7 +72,18 @@ const BikeCompare = () => {
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[280px] p-0">
-              <Command>
+              <Command
+                filter={(value, search) => {
+                  const bikeItem = bikes.bikes.find(
+                    (bike) => bike.id === value
+                  );
+                  return bikeItem?.name
+                    .toLowerCase()
+                    .includes(search.toLowerCase())
+                    ? 1
+                    : 0;
+                }}
+              >
                 <CommandInput placeholder="Search bikes..." />
                 <CommandList>
                   <CommandEmpty>No bike found.</CommandEmpty>
@@ -124,7 +135,18 @@ const BikeCompare = () => {
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[280px] p-0">
-              <Command>
+              <Command
+                filter={(value, search) => {
+                  const bikeItem = bikes.bikes.find(
+                    (bike) => bike.id === value
+                  );
+                  return bikeItem?.name
+                    .toLowerCase()
+                    .includes(search.toLowerCase())
+                    ? 1
+                    : 0;
+                }}
+              >
                 <CommandInput placeholder="Search bikes..." />
                 <CommandList>
                   <CommandEmpty>No bike found.</CommandEmpty>
