@@ -138,10 +138,19 @@ const BikeSelector = ({
 
   const handleManualToggle = () => {
     setIsManualMode(!isManualMode);
-    if (!isManualMode && selectedBike) {
-      onCustomBikeChange({
-        ...selectedBike,
-      });
+    if (!isManualMode) {
+      // When switching to manual mode, always set a custom bike
+      onCustomBikeChange(
+        selectedBike ?? {
+          id: "custom",
+          name: "Custom Bike",
+          stack: 0,
+          reach: 0,
+          headAngle: 0,
+          chainstayLength: 0,
+          wheelbase: 0,
+        }
+      );
       setHasManualChanges(false);
     } else if (isManualMode) {
       if (hasManualChanges) {
@@ -390,9 +399,14 @@ const BikeCompare = () => {
         />
       </div>
 
-      {isManualMode && leftBikeDetails && rightBikeDetails && (
+      {isManualMode && (
         <div className="mt-4">
-          <Button onClick={handleCalculate}>Calculate</Button>
+          <Button
+            onClick={handleCalculate}
+            disabled={!leftBikeDetails || !rightBikeDetails}
+          >
+            Calculate
+          </Button>
         </div>
       )}
 
@@ -402,6 +416,20 @@ const BikeCompare = () => {
           rightBike={rightBikeDetails}
           calculation={spacerCalculation}
         />
+      )}
+
+      {(Boolean(leftBike?.length) ||
+        Boolean(rightBike?.length) ||
+        leftCustomBike !== null ||
+        rightCustomBike !== null) && (
+        <div className="mt-8">
+          <Button
+            variant="destructive"
+            onClick={() => window.location.reload()}
+          >
+            Reset
+          </Button>
+        </div>
       )}
     </div>
   );
