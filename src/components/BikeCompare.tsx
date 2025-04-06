@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -31,8 +29,6 @@ interface BikeDetails {
   wheelbase: number;
 }
 
-type CustomBikeDetails = BikeDetails;
-
 const BikeStats = ({ bike }: { bike: BikeDetails }) => (
   <div className="m-4 space-y-1">
     <h3 className="font-semibold">{bike.name}</h3>
@@ -49,8 +45,8 @@ const BikeStats = ({ bike }: { bike: BikeDetails }) => (
 interface BikeSelectorProps {
   selectedBikeId: string;
   onBikeSelect: (bikeId: string) => void;
-  onCustomBikeChange: (bike: CustomBikeDetails | null) => void;
-  customBike: CustomBikeDetails | null;
+  onCustomBikeChange: (bike: BikeDetails | null) => void;
+  customBike: BikeDetails | null;
   placeholder: string;
 }
 
@@ -58,10 +54,10 @@ const ManualBikeInput = ({
   bike,
   onChange,
 }: {
-  bike: CustomBikeDetails;
-  onChange: (bike: CustomBikeDetails) => void;
+  bike: BikeDetails;
+  onChange: (bike: BikeDetails) => void;
 }) => {
-  const handleChange = (field: keyof CustomBikeDetails, value: string) => {
+  const handleChange = (field: keyof BikeDetails, value: string) => {
     const numValue = field === "name" ? value : parseFloat(value);
     onChange({
       ...bike,
@@ -143,15 +139,12 @@ const BikeSelector = ({
   const handleManualToggle = () => {
     setIsManualMode(!isManualMode);
     if (!isManualMode && selectedBike) {
-      // If switching to manual mode with a selected bike, initialize custom values
       onCustomBikeChange({
         ...selectedBike,
       });
       setHasManualChanges(false);
     } else if (isManualMode) {
-      // If switching back to dropdown mode
       if (hasManualChanges) {
-        // Only clear selection if changes were made
         onBikeSelect("");
       }
       onCustomBikeChange(null);
@@ -159,7 +152,7 @@ const BikeSelector = ({
     }
   };
 
-  const handleManualChange = (bike: CustomBikeDetails) => {
+  const handleManualChange = (bike: BikeDetails) => {
     setHasManualChanges(true);
     onCustomBikeChange(bike);
   };
@@ -305,9 +298,9 @@ const BikeCompare = () => {
   const [leftBike, setLeftBike] = React.useState<string>("");
   const [rightBike, setRightBike] = React.useState<string>("");
   const [leftCustomBike, setLeftCustomBike] =
-    React.useState<CustomBikeDetails | null>(null);
+    React.useState<BikeDetails | null>(null);
   const [rightCustomBike, setRightCustomBike] =
-    React.useState<CustomBikeDetails | null>(null);
+    React.useState<BikeDetails | null>(null);
 
   const leftBikeDetails =
     leftCustomBike ?? (leftBike ? getBikeDetails(leftBike) : null);
