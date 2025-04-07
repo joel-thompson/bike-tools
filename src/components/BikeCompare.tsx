@@ -145,7 +145,7 @@ const BikeSelector = ({
   const handleManualToggle = () => {
     setIsManualMode(!isManualMode);
     if (!isManualMode) {
-      // When switching to manual mode, always set a custom bike
+      // When switching to manual mode, initialize with selected bike or default values
       onCustomBikeChange(
         selectedBike ?? {
           id: "custom",
@@ -158,8 +158,10 @@ const BikeSelector = ({
         }
       );
       setHasManualChanges(false);
-    } else if (isManualMode) {
+    } else {
+      // When switching back to bike selection mode
       if (hasManualChanges) {
+        // Only clear selection if changes were made
         onBikeSelect("");
       }
       onCustomBikeChange(null);
@@ -392,16 +394,20 @@ const BikeCompare = () => {
   ) => {
     if (isLeft) {
       setLeftCustomBike(bike);
-      // Clear URL param when switching to manual mode
-      void navigate({
-        search: (prev: SearchParams) => ({ ...prev, leftBikeId: undefined }),
-      });
+      // Only clear URL param if we're making actual changes (not just initializing)
+      if (bike && bike.id === "custom") {
+        void navigate({
+          search: (prev: SearchParams) => ({ ...prev, leftBikeId: undefined }),
+        });
+      }
     } else {
       setRightCustomBike(bike);
-      // Clear URL param when switching to manual mode
-      void navigate({
-        search: (prev: SearchParams) => ({ ...prev, rightBikeId: undefined }),
-      });
+      // Only clear URL param if we're making actual changes (not just initializing)
+      if (bike && bike.id === "custom") {
+        void navigate({
+          search: (prev: SearchParams) => ({ ...prev, rightBikeId: undefined }),
+        });
+      }
     }
     setManualCalculation(null);
   };
