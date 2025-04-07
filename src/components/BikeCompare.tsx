@@ -386,6 +386,8 @@ const BikeCompare = () => {
         }),
       });
     }
+    // Clear manual calculation when changing bike selection
+    setManualCalculation(null);
   };
 
   const handleCustomBikeChange = (
