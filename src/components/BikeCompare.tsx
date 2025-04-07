@@ -160,18 +160,21 @@ const BikeSelector = ({
       setHasManualChanges(false);
     } else {
       // When switching back to bike selection mode
-      if (hasManualChanges) {
-        // Only clear selection if changes were made
-        onBikeSelect("");
-      }
       onCustomBikeChange(null);
       setHasManualChanges(false);
     }
   };
 
   const handleManualChange = (bike: BikeDetails) => {
+    // First time we make a change, clear the bike selection
+    if (!hasManualChanges) {
+      onBikeSelect("");
+    }
     setHasManualChanges(true);
-    onCustomBikeChange(bike);
+    onCustomBikeChange({
+      ...bike,
+      id: "custom", // Ensure custom bikes always have id="custom"
+    });
   };
 
   return (
@@ -383,9 +386,6 @@ const BikeCompare = () => {
         }),
       });
     }
-    if (isManualMode) {
-      setManualCalculation(null);
-    }
   };
 
   const handleCustomBikeChange = (
@@ -394,20 +394,8 @@ const BikeCompare = () => {
   ) => {
     if (isLeft) {
       setLeftCustomBike(bike);
-      // Only clear URL param if we're making actual changes (not just initializing)
-      if (bike && bike.id === "custom") {
-        void navigate({
-          search: (prev: SearchParams) => ({ ...prev, leftBikeId: undefined }),
-        });
-      }
     } else {
       setRightCustomBike(bike);
-      // Only clear URL param if we're making actual changes (not just initializing)
-      if (bike && bike.id === "custom") {
-        void navigate({
-          search: (prev: SearchParams) => ({ ...prev, rightBikeId: undefined }),
-        });
-      }
     }
     setManualCalculation(null);
   };
