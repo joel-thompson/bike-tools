@@ -18,6 +18,12 @@ import {
 } from "@/components/ui/popover";
 import bikes from "@/bikes.json";
 import stackToSpacers from "@/utils/stackToSpacers";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { Route as BikeCompareRoute } from "@/routes/bike-compare";
+import { bikeCompareSearchSchema } from "@/schemas";
+import { z } from "zod";
+
+type SearchParams = z.infer<typeof bikeCompareSearchSchema>;
 
 interface BikeDetails {
   id: string;
@@ -304,8 +310,15 @@ const SpacerCalculationResult = ({
 );
 
 const BikeCompare = () => {
-  const [leftBike, setLeftBike] = React.useState<string>("");
-  const [rightBike, setRightBike] = React.useState<string>("");
+  // Get search params and navigation function
+  const search = useSearch({
+    from: BikeCompareRoute.id,
+  }) as unknown as SearchParams;
+  const leftBikeId = search.leftBikeId ?? "";
+  const rightBikeId = search.rightBikeId ?? "";
+  const navigate = useNavigate({ from: BikeCompareRoute.id });
+
+  // Keep manual entry state local
   const [leftCustomBike, setLeftCustomBike] =
     React.useState<BikeDetails | null>(null);
   const [rightCustomBike, setRightCustomBike] =
@@ -317,9 +330,9 @@ const BikeCompare = () => {
   } | null>(null);
 
   const leftBikeDetails =
-    leftCustomBike ?? (leftBike ? getBikeDetails(leftBike) : null);
+    leftCustomBike ?? (leftBikeId ? getBikeDetails(leftBikeId) : null);
   const rightBikeDetails =
-    rightCustomBike ?? (rightBike ? getBikeDetails(rightBike) : null);
+    rightCustomBike ?? (rightBikeId ? getBikeDetails(rightBikeId) : null);
 
   const calculateSpacerChange = () => {
     if (!leftBikeDetails || !rightBikeDetails) return null;
@@ -351,12 +364,22 @@ const BikeCompare = () => {
     }
   };
 
-  // Clear manual calculation when changes are made in manual mode
+  // Update search params when bikes are selected (but not for manual entries)
   const handleBikeSelect = (bikeId: string, isLeft: boolean) => {
     if (isLeft) {
-      setLeftBike(bikeId);
+      void navigate({
+        search: (prev: SearchParams) => ({
+          ...prev,
+          leftBikeId: bikeId || undefined,
+        }),
+      });
     } else {
-      setRightBike(bikeId);
+      void navigate({
+        search: (prev: SearchParams) => ({
+          ...prev,
+          rightBikeId: bikeId || undefined,
+        }),
+      });
     }
     if (isManualMode) {
       setManualCalculation(null);
@@ -369,8 +392,16 @@ const BikeCompare = () => {
   ) => {
     if (isLeft) {
       setLeftCustomBike(bike);
+      // Clear URL param when switching to manual mode
+      void navigate({
+        search: (prev: SearchParams) => ({ ...prev, leftBikeId: undefined }),
+      });
     } else {
       setRightCustomBike(bike);
+      // Clear URL param when switching to manual mode
+      void navigate({
+        search: (prev: SearchParams) => ({ ...prev, rightBikeId: undefined }),
+      });
     }
     setManualCalculation(null);
   };
@@ -384,14 +415,14 @@ const BikeCompare = () => {
     <div className="">
       <div className="flex gap-8">
         <BikeSelector
-          selectedBikeId={leftBike}
+          selectedBikeId={leftBikeId}
           onBikeSelect={(id) => handleBikeSelect(id, true)}
           onCustomBikeChange={(bike) => handleCustomBikeChange(bike, true)}
           customBike={leftCustomBike}
           placeholder="Select first bike..."
         />
         <BikeSelector
-          selectedBikeId={rightBike}
+          selectedBikeId={rightBikeId}
           onBikeSelect={(id) => handleBikeSelect(id, false)}
           onCustomBikeChange={(bike) => handleCustomBikeChange(bike, false)}
           customBike={rightCustomBike}
@@ -418,14 +449,18 @@ const BikeCompare = () => {
         />
       )}
 
-      {(Boolean(leftBike?.length) ||
-        Boolean(rightBike?.length) ||
+      {(Boolean(leftBikeId) ||
+        Boolean(rightBikeId) ||
         leftCustomBike !== null ||
         rightCustomBike !== null) && (
         <div className="mt-8">
           <Button
             variant="destructive"
-            onClick={() => window.location.reload()}
+            onClick={() => {
+              void navigate({
+                search: () => ({}),
+              }).then(() => window.location.reload());
+            }}
           >
             Reset
           </Button>
