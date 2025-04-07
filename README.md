@@ -1,6 +1,6 @@
 # Bike Tools
 
-Just some bike stuff - [somebiketools.com](somebiketools.com)
+Just some bike stuff - [somebiketools.com](https://www.somebiketools.com)
 
 # Run locally
 
