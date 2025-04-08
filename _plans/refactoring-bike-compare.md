@@ -121,7 +121,7 @@
   6. Restored manual mode initialization to preserve UX where users can tweak selected bike values
 
 ## Phase 2: Component Splitting
-**Status**: 🔄 Not Started
+**Status**: ✅ Completed
 
 ### Plan
 1. Split BikeSelector into focused components
@@ -140,9 +140,54 @@
 
 ### Implementation Notes
 - Files changed:
+  - Created new directory `src/components/BikeCompare/`
+  - Created component files:
+    - `BikeCombobox.tsx`: Focused dropdown component for bike selection
+    - `BikeStats.tsx`: Display component for bike measurements
+    - `ManualBikeForm.tsx`: Form component for manual bike entry
+    - `ComparisonResults.tsx`: Display component for calculation results
+    - `BikeSelector.tsx`: Container component combining selection methods
+    - `index.tsx`: Main component and public exports
+  - Deleted original files from `src/components/`
+
 - Key decisions:
+  1. Used a folder-based component organization to group related components
+  2. Created an index.tsx file to:
+     - Serve as the main entry point
+     - Export sub-components for potential reuse
+     - Keep the public API clean
+  3. Used relative imports within the BikeCompare folder for better maintainability
+  4. Removed unused imports and fixed linting issues
+  5. Kept component props interfaces co-located with their components
+
 - Challenges encountered:
+  1. Managing imports between components - solved by using relative paths
+  2. Linting errors from unused imports - fixed by cleaning up imports
+  3. Maintaining component state during refactor - preserved through careful extraction
+
 - Solutions implemented:
+  1. Clear component hierarchy:
+     ```
+     BikeCompare/
+     ├── index.tsx (main component + exports)
+     ├── BikeSelector.tsx (combines selection methods)
+     ├── BikeCombobox.tsx (dropdown selection)
+     ├── BikeStats.tsx (measurements display)
+     ├── ManualBikeForm.tsx (manual entry)
+     └── ComparisonResults.tsx (calculations display)
+     ```
+  2. Each component has a single responsibility:
+     - BikeCombobox: Only handles dropdown selection
+     - BikeStats: Only displays measurements
+     - ManualBikeForm: Only handles form inputs
+     - ComparisonResults: Only displays calculations
+     - BikeSelector: Orchestrates selection methods
+  3. Improved code organization:
+     - Related components are grouped
+     - Each component is focused and maintainable
+     - Clear separation of concerns
+     - Reduced file sizes
+     - Better code reusability
 
 ## Phase 3: Type Organization
 **Status**: 🔄 Not Started
@@ -211,8 +256,8 @@
 
 ## Implementation Order
 1. ✅ Phase 1 - Foundation for state management
-2. Phase 3 - Types needed for other phases ⬅️ Next up
-3. Phase 2 - Component splitting
+2. ✅ Phase 2 - Component splitting
+3. Phase 3 - Types needed for other phases ⬅️ Next up
 4. Phase 4 - Calculation logic
 5. Phase 5 - Final cleanup and optimization
 
