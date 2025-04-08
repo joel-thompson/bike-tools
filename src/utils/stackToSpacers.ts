@@ -35,8 +35,8 @@ const stackToSpacers = ({
   headAngle,
   stackDelta,
 }: {
-  headAngle: number; // must be greater than 0 (not inclusive) and 90 or less (inclusive)
-  stackDelta: number; // -100 to 100 inclusive
+  headAngle: number;
+  stackDelta: number;
 }) => {
   // should return the required spacers under the stem to get the desired stackDelta
   // should return the change in reach (reachDelta) as a result of that change in spacers
