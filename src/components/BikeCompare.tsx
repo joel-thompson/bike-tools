@@ -17,23 +17,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import bikes from "@/bikes.json";
-import stackToSpacers from "@/utils/stackToSpacers";
-import { useNavigate, useSearch } from "@tanstack/react-router";
-import { Route as BikeCompareRoute } from "@/routes/bike-compare";
-import { bikeCompareSearchSchema } from "@/schemas";
-import { z } from "zod";
-
-type SearchParams = z.infer<typeof bikeCompareSearchSchema>;
-
-interface BikeDetails {
-  id: string;
-  name: string;
-  stack: number;
-  reach: number;
-  headAngle: number;
-  chainstayLength: number;
-  wheelbase: number;
-}
+import { BikeDetails } from "@/types/bike";
+import { useBikeSelection } from "@/hooks/useBikeSelection";
 
 const BikeStats = ({ bike }: { bike: BikeDetails }) => (
   <div className="m-4 space-y-1">
@@ -140,12 +125,14 @@ const BikeSelector = ({
   const [open, setOpen] = React.useState(false);
   const [isManualMode, setIsManualMode] = React.useState(false);
   const [hasManualChanges, setHasManualChanges] = React.useState(false);
-  const selectedBike = selectedBikeId ? getBikeDetails(selectedBikeId) : null;
 
   const handleManualToggle = () => {
     setIsManualMode(!isManualMode);
     if (!isManualMode) {
       // When switching to manual mode, initialize with selected bike or default values
+      const selectedBike = selectedBikeId
+        ? bikes.bikes.find((bike) => bike.id === selectedBikeId)
+        : null;
       onCustomBikeChange(
         selectedBike ?? {
           id: "custom",
@@ -215,7 +202,9 @@ const BikeSelector = ({
                 aria-expanded={open}
                 className="w-full justify-between"
               >
-                {selectedBike ? selectedBike.name : placeholder}
+                {selectedBikeId
+                  ? bikes.bikes.find((bike) => bike.id === selectedBikeId)?.name
+                  : placeholder}
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
@@ -263,19 +252,16 @@ const BikeSelector = ({
               </Command>
             </PopoverContent>
           </Popover>
-          {selectedBike && <BikeStats bike={selectedBike} />}
+          {selectedBikeId &&
+            bikes.bikes.find((bike) => bike.id === selectedBikeId) && (
+              <BikeStats
+                bike={bikes.bikes.find((bike) => bike.id === selectedBikeId)!}
+              />
+            )}
         </>
       )}
     </div>
   );
-};
-
-const getBikeDetails = (bikeId: string): BikeDetails => {
-  const bike = bikes.bikes.find((bike) => bike.id === bikeId);
-  if (!bike) {
-    throw new Error(`Bike with id ${bikeId} not found`);
-  }
-  return bike;
 };
 
 interface SpacerCalculationResultProps {
@@ -315,112 +301,35 @@ const SpacerCalculationResult = ({
 );
 
 const BikeCompare = () => {
-  // Get search params and navigation function
-  const search = useSearch({
-    from: BikeCompareRoute.id,
-  }) as unknown as SearchParams;
-  const leftBikeId = search.leftBikeId ?? "";
-  const rightBikeId = search.rightBikeId ?? "";
-  const navigate = useNavigate({ from: BikeCompareRoute.id });
-
-  // Keep manual entry state local
-  const [leftCustomBike, setLeftCustomBike] =
-    React.useState<BikeDetails | null>(null);
-  const [rightCustomBike, setRightCustomBike] =
-    React.useState<BikeDetails | null>(null);
-  const [manualCalculation, setManualCalculation] = React.useState<{
-    stackDelta: number;
-    spacersDelta: number;
-    reachDelta: number;
-  } | null>(null);
-
-  const leftBikeDetails =
-    leftCustomBike ?? (leftBikeId ? getBikeDetails(leftBikeId) : null);
-  const rightBikeDetails =
-    rightCustomBike ?? (rightBikeId ? getBikeDetails(rightBikeId) : null);
-
-  const calculateSpacerChange = () => {
-    if (!leftBikeDetails || !rightBikeDetails) return null;
-
-    const stackDelta = leftBikeDetails.stack - rightBikeDetails.stack;
-    const result = stackToSpacers({
-      headAngle: rightBikeDetails.headAngle,
-      stackDelta: stackDelta,
-    });
-
-    return {
-      stackDelta,
-      ...result,
-    };
-  };
-
-  // Determine if we're in manual mode
-  const isManualMode = leftCustomBike !== null || rightCustomBike !== null;
-
-  // Calculate automatically only if not in manual mode
-  const autoSpacerCalculation =
-    !isManualMode && leftBikeDetails && rightBikeDetails
-      ? calculateSpacerChange()
-      : null;
-
-  const handleCalculate = () => {
-    if (leftBikeDetails && rightBikeDetails) {
-      setManualCalculation(calculateSpacerChange());
-    }
-  };
-
-  // Update search params when bikes are selected (but not for manual entries)
-  const handleBikeSelect = (bikeId: string, isLeft: boolean) => {
-    if (isLeft) {
-      void navigate({
-        search: (prev: SearchParams) => ({
-          ...prev,
-          leftBikeId: bikeId || undefined,
-        }),
-      });
-    } else {
-      void navigate({
-        search: (prev: SearchParams) => ({
-          ...prev,
-          rightBikeId: bikeId || undefined,
-        }),
-      });
-    }
-    // Clear manual calculation when changing bike selection
-    setManualCalculation(null);
-  };
-
-  const handleCustomBikeChange = (
-    bike: BikeDetails | null,
-    isLeft: boolean
-  ) => {
-    if (isLeft) {
-      setLeftCustomBike(bike);
-    } else {
-      setRightCustomBike(bike);
-    }
-    setManualCalculation(null);
-  };
-
-  // Use manual calculation if available, otherwise use auto calculation
-  const spacerCalculation = isManualMode
-    ? manualCalculation
-    : autoSpacerCalculation;
+  const {
+    leftBike,
+    rightBike,
+    leftBikeId,
+    rightBikeId,
+    leftCustomBike,
+    rightCustomBike,
+    isManualMode,
+    spacerCalculation,
+    handleBikeSelect,
+    handleCustomBikeChange,
+    handleCalculate,
+    resetSelection,
+  } = useBikeSelection();
 
   return (
     <div className="">
       <div className="flex gap-8">
         <BikeSelector
           selectedBikeId={leftBikeId}
-          onBikeSelect={(id) => handleBikeSelect(id, true)}
-          onCustomBikeChange={(bike) => handleCustomBikeChange(bike, true)}
+          onBikeSelect={(id) => handleBikeSelect(id, "left")}
+          onCustomBikeChange={(bike) => handleCustomBikeChange(bike, "left")}
           customBike={leftCustomBike}
           placeholder="Select first bike..."
         />
         <BikeSelector
           selectedBikeId={rightBikeId}
-          onBikeSelect={(id) => handleBikeSelect(id, false)}
-          onCustomBikeChange={(bike) => handleCustomBikeChange(bike, false)}
+          onBikeSelect={(id) => handleBikeSelect(id, "right")}
+          onCustomBikeChange={(bike) => handleCustomBikeChange(bike, "right")}
           customBike={rightCustomBike}
           placeholder="Select second bike..."
         />
@@ -428,19 +337,16 @@ const BikeCompare = () => {
 
       {isManualMode && (
         <div className="mt-4">
-          <Button
-            onClick={handleCalculate}
-            disabled={!leftBikeDetails || !rightBikeDetails}
-          >
+          <Button onClick={handleCalculate} disabled={!leftBike || !rightBike}>
             Calculate
           </Button>
         </div>
       )}
 
-      {spacerCalculation && leftBikeDetails && rightBikeDetails && (
+      {spacerCalculation && leftBike && rightBike && (
         <SpacerCalculationResult
-          leftBike={leftBikeDetails}
-          rightBike={rightBikeDetails}
+          leftBike={leftBike}
+          rightBike={rightBike}
           calculation={spacerCalculation}
         />
       )}
@@ -450,14 +356,7 @@ const BikeCompare = () => {
         leftCustomBike !== null ||
         rightCustomBike !== null) && (
         <div className="mt-8">
-          <Button
-            variant="destructive"
-            onClick={() => {
-              void navigate({
-                search: () => ({}),
-              }).then(() => window.location.reload());
-            }}
-          >
+          <Button variant="destructive" onClick={resetSelection}>
             Reset
           </Button>
         </div>

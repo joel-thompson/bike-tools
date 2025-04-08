@@ -62,7 +62,7 @@
 - Better separation of concerns
 
 ## Phase 1: State Management and Custom Hook
-**Status**: 🔄 Not Started
+**Status**: ✅ Completed
 
 ### Plan
 1. Create `useBikeSelection` hook
@@ -81,9 +81,44 @@
 
 ### Implementation Notes
 - Files changed:
+  - Created `src/types/bike.ts`
+    - Added `BikeDetails` interface with JSDoc comments
+    - Added `BikeSide` type for left/right selection
+    - Added `SpacerCalculation` interface for calculation results
+  - Created `src/hooks/useBikeSelection.ts`
+    - Implemented URL state management using tanstack router
+    - Added local state for custom bikes
+    - Consolidated bike selection handlers
+    - Added calculation logic with proper error handling
+    - Used object parameters pattern consistently
+    - Added comprehensive JSDoc documentation
+  - Updated `src/components/BikeCompare.tsx`
+    - Integrated useBikeSelection hook
+    - Removed duplicate state management
+    - Fixed manual mode initialization to preserve selected bike values
+    - Improved type safety with imported types
+
 - Key decisions:
+  1. Split types into separate file for better organization and reuse
+  2. Used TypeScript's discriminated unions for bike side ('left' | 'right')
+  3. Made calculation logic more robust with null checks
+  4. Used useCallback for all handlers to optimize performance
+  5. Kept URL state for bike selection but local state for custom bikes
+  6. Preserved existing UX where manual mode inherits selected bike values
+
 - Challenges encountered:
+  1. Circular dependency in getBikeDetails usage (fixed by moving function definition)
+  2. Needed to handle both URL and local state coherently
+  3. Manual vs auto calculation mode complexity
+  4. Bug: Manual mode lost selected bike values after refactor (fixed by restoring initialization logic)
+
 - Solutions implemented:
+  1. Clear separation between URL and local state
+  2. Unified interface for both preset and custom bikes
+  3. Automatic calculation in preset mode, manual in custom mode
+  4. Proper error handling for bike lookup
+  5. Type-safe implementation with comprehensive types
+  6. Restored manual mode initialization to preserve UX where users can tweak selected bike values
 
 ## Phase 2: Component Splitting
 **Status**: 🔄 Not Started
@@ -175,8 +210,8 @@
 - Solutions implemented:
 
 ## Implementation Order
-1. Phase 1 - Foundation for other changes ⬅️ Next up
-2. Phase 3 - Types needed for other phases
+1. ✅ Phase 1 - Foundation for state management
+2. Phase 3 - Types needed for other phases ⬅️ Next up
 3. Phase 2 - Component splitting
 4. Phase 4 - Calculation logic
 5. Phase 5 - Final cleanup and optimization
