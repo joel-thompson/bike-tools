@@ -17,11 +17,13 @@ const BikeCompare = () => {
     rightBikeId,
     leftCustomBike,
     rightCustomBike,
-    isManualMode,
+    isLeftManualMode,
+    isRightManualMode,
     spacerCalculation,
     handleBikeSelect,
     handleCustomBikeChange,
     handleCalculate,
+    handleManualModeChange,
     resetSelection,
   } = useBikeSelection();
 
@@ -34,6 +36,10 @@ const BikeCompare = () => {
           onCustomBikeChange={(bike) => handleCustomBikeChange(bike, "left")}
           customBike={leftCustomBike}
           placeholder="Select first bike..."
+          isManualMode={isLeftManualMode}
+          onManualModeChange={(isManual) =>
+            handleManualModeChange(isManual, "left")
+          }
         />
         <BikeSelector
           selectedBikeId={rightBikeId}
@@ -41,10 +47,14 @@ const BikeCompare = () => {
           onCustomBikeChange={(bike) => handleCustomBikeChange(bike, "right")}
           customBike={rightCustomBike}
           placeholder="Select second bike..."
+          isManualMode={isRightManualMode}
+          onManualModeChange={(isManual) =>
+            handleManualModeChange(isManual, "right")
+          }
         />
       </div>
 
-      {isManualMode && (
+      {(isLeftManualMode || isRightManualMode) && (
         <div className="mt-4">
           <Button onClick={handleCalculate} disabled={!leftBike || !rightBike}>
             Calculate

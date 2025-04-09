@@ -31,6 +31,8 @@ export function useBikeSelection() {
   );
   const [manualCalculation, setManualCalculation] =
     useState<SpacerCalculation | null>(null);
+  const [isLeftManualMode, setIsLeftManualMode] = useState(false);
+  const [isRightManualMode, setIsRightManualMode] = useState(false);
 
   /**
    * Get bike details from the bikes database
@@ -109,6 +111,22 @@ export function useBikeSelection() {
   }, [calculateSpacerChange, leftBikeDetails, rightBikeDetails]);
 
   /**
+   * Handle manual mode changes
+   */
+  const handleManualModeChange = useCallback(
+    (isManual: boolean, side: BikeSide) => {
+      if (side === "left") {
+        setIsLeftManualMode(isManual);
+        if (!isManual) setLeftCustomBike(null);
+      } else {
+        setIsRightManualMode(isManual);
+        if (!isManual) setRightCustomBike(null);
+      }
+    },
+    []
+  );
+
+  /**
    * Reset all selections and calculations
    */
   const resetSelection = useCallback(() => {
@@ -118,6 +136,8 @@ export function useBikeSelection() {
     setLeftCustomBike(null);
     setRightCustomBike(null);
     setManualCalculation(null);
+    setIsLeftManualMode(false);
+    setIsRightManualMode(false);
   }, [navigate]);
 
   // Calculate automatically only if not in manual mode
@@ -143,13 +163,15 @@ export function useBikeSelection() {
     rightCustomBike,
 
     // Mode and calculations
-    isManualMode,
+    isLeftManualMode,
+    isRightManualMode,
     spacerCalculation,
 
     // Actions
     handleBikeSelect,
     handleCustomBikeChange,
     handleCalculate,
+    handleManualModeChange,
     resetSelection,
   };
 }

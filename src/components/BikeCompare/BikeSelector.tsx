@@ -12,6 +12,8 @@ interface BikeSelectorProps {
   onCustomBikeChange: (bike: BikeDetails | null) => void;
   customBike: BikeDetails | null;
   placeholder: string;
+  isManualMode: boolean;
+  onManualModeChange: (isManual: boolean) => void;
 }
 
 export const BikeSelector = ({
@@ -20,13 +22,16 @@ export const BikeSelector = ({
   onCustomBikeChange,
   customBike,
   placeholder,
+  isManualMode,
+  onManualModeChange,
 }: BikeSelectorProps) => {
-  const [isManualMode, setIsManualMode] = React.useState(false);
   const [hasManualChanges, setHasManualChanges] = React.useState(false);
 
   const handleManualToggle = () => {
-    setIsManualMode(!isManualMode);
-    if (!isManualMode) {
+    const newManualMode = !isManualMode;
+    onManualModeChange(newManualMode);
+
+    if (newManualMode) {
       // When switching to manual mode, initialize with selected bike or default values
       const selectedBike = selectedBikeId
         ? bikes.bikes.find((bike) => bike.id === selectedBikeId)
