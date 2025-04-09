@@ -1,6 +1,6 @@
 ---
 description: 
-globs: *.tsx,**/*.tsx
+globs: **/*.tsx
 alwaysApply: false
 ---
 Functions should use object parameters instead of positional parameters for better maintainability and readability.

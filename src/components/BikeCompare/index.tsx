@@ -30,7 +30,7 @@ const BikeCompare = () => {
 
   return (
     <div className="">
-      <div className="flex gap-8">
+      <div className="flex flex-col md:flex-row gap-8">
         <BikeSelector
           selectedBikeId={leftBikeId}
           onBikeSelect={(bikeId) => handleBikeSelect({ bikeId, side: "left" })}
