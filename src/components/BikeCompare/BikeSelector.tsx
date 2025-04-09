@@ -7,12 +7,12 @@ import bikes from "@/bikes.json";
 
 interface BikeSelectorProps {
   selectedBikeId: string;
-  onBikeSelect: (params: { bikeId: string }) => void;
+  onBikeSelect: (bikeId: string) => void;
   onCustomBikeChange: (params: { bike: BikeDetails | null }) => void;
   customBike: BikeDetails | null;
   placeholder: string;
   isManualMode: boolean;
-  onManualModeChange: (params: { isManual: boolean }) => void;
+  onManualModeChange: (isManual: boolean) => void;
   onManualChange: (params: { bike: BikeDetails }) => void;
 }
 
@@ -38,16 +38,14 @@ export const BikeSelector = ({
 }: BikeSelectorProps) => {
   const handleManualToggle = () => {
     const newManualMode = !isManualMode;
-    onManualModeChange({ isManual: newManualMode });
+    onManualModeChange(newManualMode);
 
     if (newManualMode) {
       // When switching to manual mode, initialize with selected bike or default values
       const selectedBike = selectedBikeId
         ? bikes.bikes.find((bike) => bike.id === selectedBikeId)
         : null;
-      onCustomBikeChange({
-        bike: selectedBike ?? defaultBike,
-      });
+      onCustomBikeChange({ bike: selectedBike ?? defaultBike });
     } else {
       // When switching back to bike selection mode
       onCustomBikeChange({ bike: null });
@@ -70,13 +68,13 @@ export const BikeSelector = ({
       {isManualMode ? (
         <ManualBikeForm
           bike={customBike ?? defaultBike}
-          onChange={(bike) => onManualChange({ bike })}
+          onChange={onManualChange}
         />
       ) : (
         <>
           <BikeCombobox
             selectedBikeId={selectedBikeId}
-            onSelect={(bikeId) => onBikeSelect({ bikeId })}
+            onSelect={onBikeSelect}
             placeholder={placeholder}
           />
           {selectedBikeId &&

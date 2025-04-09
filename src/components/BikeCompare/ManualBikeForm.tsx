@@ -3,15 +3,17 @@ import { BikeDetails } from "@/types/bike";
 
 interface ManualBikeFormProps {
   bike: BikeDetails;
-  onChange: (bike: BikeDetails) => void;
+  onChange: (params: { bike: BikeDetails }) => void;
 }
 
 export const ManualBikeForm = ({ bike, onChange }: ManualBikeFormProps) => {
   const handleChange = (field: keyof BikeDetails, value: string) => {
     const numValue = field === "name" ? value : parseFloat(value);
     onChange({
-      ...bike,
-      [field]: numValue,
+      bike: {
+        ...bike,
+        [field]: numValue,
+      },
     });
   };
 

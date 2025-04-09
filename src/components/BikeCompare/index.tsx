@@ -33,16 +33,14 @@ const BikeCompare = () => {
       <div className="flex gap-8">
         <BikeSelector
           selectedBikeId={leftBikeId}
-          onBikeSelect={({ bikeId }) =>
-            handleBikeSelect({ bikeId, side: "left" })
-          }
+          onBikeSelect={(bikeId) => handleBikeSelect({ bikeId, side: "left" })}
           onCustomBikeChange={({ bike }) =>
             handleCustomBikeChange({ bike, side: "left" })
           }
           customBike={leftCustomBike}
           placeholder="Select first bike..."
           isManualMode={isLeftManualMode}
-          onManualModeChange={({ isManual }) =>
+          onManualModeChange={(isManual) =>
             handleManualModeChange({ isManual, side: "left" })
           }
           onManualChange={({ bike }) =>
@@ -51,16 +49,14 @@ const BikeCompare = () => {
         />
         <BikeSelector
           selectedBikeId={rightBikeId}
-          onBikeSelect={({ bikeId }) =>
-            handleBikeSelect({ bikeId, side: "right" })
-          }
+          onBikeSelect={(bikeId) => handleBikeSelect({ bikeId, side: "right" })}
           onCustomBikeChange={({ bike }) =>
             handleCustomBikeChange({ bike, side: "right" })
           }
           customBike={rightCustomBike}
           placeholder="Select second bike..."
           isManualMode={isRightManualMode}
-          onManualModeChange={({ isManual }) =>
+          onManualModeChange={(isManual) =>
             handleManualModeChange({ isManual, side: "right" })
           }
           onManualChange={({ bike }) =>
