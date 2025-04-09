@@ -1,4 +1,4 @@
-import BikeCompare from "@/components/BikeCompare";
+import BikeCompare from "@/components/BikeCompare/index";
 import { createFileRoute } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
 import { bikeCompareSearchSchema } from "@/schemas";
