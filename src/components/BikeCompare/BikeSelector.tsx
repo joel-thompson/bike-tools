@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { BikeDetails } from "@/types/bike";
 import { BikeCombobox } from "./BikeCombobox";
@@ -8,13 +7,24 @@ import bikes from "@/bikes.json";
 
 interface BikeSelectorProps {
   selectedBikeId: string;
-  onBikeSelect: (bikeId: string) => void;
-  onCustomBikeChange: (bike: BikeDetails | null) => void;
+  onBikeSelect: (params: { bikeId: string }) => void;
+  onCustomBikeChange: (params: { bike: BikeDetails | null }) => void;
   customBike: BikeDetails | null;
   placeholder: string;
   isManualMode: boolean;
-  onManualModeChange: (isManual: boolean) => void;
+  onManualModeChange: (params: { isManual: boolean }) => void;
+  onManualChange: (params: { bike: BikeDetails }) => void;
 }
+
+const defaultBike = {
+  id: "custom",
+  name: "Custom Bike",
+  stack: 0,
+  reach: 0,
+  headAngle: 0,
+  chainstayLength: 0,
+  wheelbase: 0,
+} as const;
 
 export const BikeSelector = ({
   selectedBikeId,
@@ -24,47 +34,24 @@ export const BikeSelector = ({
   placeholder,
   isManualMode,
   onManualModeChange,
+  onManualChange,
 }: BikeSelectorProps) => {
-  const [hasManualChanges, setHasManualChanges] = React.useState(false);
-
   const handleManualToggle = () => {
     const newManualMode = !isManualMode;
-    onManualModeChange(newManualMode);
+    onManualModeChange({ isManual: newManualMode });
 
     if (newManualMode) {
       // When switching to manual mode, initialize with selected bike or default values
       const selectedBike = selectedBikeId
         ? bikes.bikes.find((bike) => bike.id === selectedBikeId)
         : null;
-      onCustomBikeChange(
-        selectedBike ?? {
-          id: "custom",
-          name: "Custom Bike",
-          stack: 0,
-          reach: 0,
-          headAngle: 0,
-          chainstayLength: 0,
-          wheelbase: 0,
-        }
-      );
-      setHasManualChanges(false);
+      onCustomBikeChange({
+        bike: selectedBike ?? defaultBike,
+      });
     } else {
       // When switching back to bike selection mode
-      onCustomBikeChange(null);
-      setHasManualChanges(false);
+      onCustomBikeChange({ bike: null });
     }
-  };
-
-  const handleManualChange = (bike: BikeDetails) => {
-    // First time we make a change, clear the bike selection
-    if (!hasManualChanges) {
-      onBikeSelect("");
-    }
-    setHasManualChanges(true);
-    onCustomBikeChange({
-      ...bike,
-      id: "custom", // Ensure custom bikes always have id="custom"
-    });
   };
 
   return (
@@ -82,24 +69,14 @@ export const BikeSelector = ({
 
       {isManualMode ? (
         <ManualBikeForm
-          bike={
-            customBike ?? {
-              id: "custom",
-              name: "Custom Bike",
-              stack: 0,
-              reach: 0,
-              headAngle: 0,
-              chainstayLength: 0,
-              wheelbase: 0,
-            }
-          }
-          onChange={handleManualChange}
+          bike={customBike ?? defaultBike}
+          onChange={(bike) => onManualChange({ bike })}
         />
       ) : (
         <>
           <BikeCombobox
             selectedBikeId={selectedBikeId}
-            onSelect={onBikeSelect}
+            onSelect={(bikeId) => onBikeSelect({ bikeId })}
             placeholder={placeholder}
           />
           {selectedBikeId &&

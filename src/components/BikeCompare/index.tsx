@@ -24,6 +24,7 @@ const BikeCompare = () => {
     handleCustomBikeChange,
     handleCalculate,
     handleManualModeChange,
+    handleManualChange,
     resetSelection,
   } = useBikeSelection();
 
@@ -32,24 +33,38 @@ const BikeCompare = () => {
       <div className="flex gap-8">
         <BikeSelector
           selectedBikeId={leftBikeId}
-          onBikeSelect={(id) => handleBikeSelect(id, "left")}
-          onCustomBikeChange={(bike) => handleCustomBikeChange(bike, "left")}
+          onBikeSelect={({ bikeId }) =>
+            handleBikeSelect({ bikeId, side: "left" })
+          }
+          onCustomBikeChange={({ bike }) =>
+            handleCustomBikeChange({ bike, side: "left" })
+          }
           customBike={leftCustomBike}
           placeholder="Select first bike..."
           isManualMode={isLeftManualMode}
-          onManualModeChange={(isManual) =>
-            handleManualModeChange(isManual, "left")
+          onManualModeChange={({ isManual }) =>
+            handleManualModeChange({ isManual, side: "left" })
+          }
+          onManualChange={({ bike }) =>
+            handleManualChange({ bike, side: "left" })
           }
         />
         <BikeSelector
           selectedBikeId={rightBikeId}
-          onBikeSelect={(id) => handleBikeSelect(id, "right")}
-          onCustomBikeChange={(bike) => handleCustomBikeChange(bike, "right")}
+          onBikeSelect={({ bikeId }) =>
+            handleBikeSelect({ bikeId, side: "right" })
+          }
+          onCustomBikeChange={({ bike }) =>
+            handleCustomBikeChange({ bike, side: "right" })
+          }
           customBike={rightCustomBike}
           placeholder="Select second bike..."
           isManualMode={isRightManualMode}
-          onManualModeChange={(isManual) =>
-            handleManualModeChange(isManual, "right")
+          onManualModeChange={({ isManual }) =>
+            handleManualModeChange({ isManual, side: "right" })
+          }
+          onManualChange={({ bike }) =>
+            handleManualChange({ bike, side: "right" })
           }
         />
       </div>
