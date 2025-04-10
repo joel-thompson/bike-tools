@@ -53,7 +53,7 @@ export const BikeSelector = ({
   };
 
   return (
-    <div className="w-80">
+    <div className="p-4 w-80">
       <div className="mb-2 flex justify-between items-center">
         <Button
           variant="outline"
