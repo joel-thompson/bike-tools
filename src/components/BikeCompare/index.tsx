@@ -28,8 +28,10 @@ const BikeCompare = () => {
     resetSelection,
   } = useBikeSelection();
 
+  const showCalculation = spacerCalculation && leftBike && rightBike;
+
   return (
-    <div className="">
+    <div className="flex flex-col gap-8">
       <div className="flex flex-col md:flex-row gap-8">
         <BikeSelector
           selectedBikeId={leftBikeId}
@@ -66,26 +68,29 @@ const BikeCompare = () => {
       </div>
 
       {(isLeftManualMode || isRightManualMode) && (
-        <div className="mt-4">
+        <div className="p-4">
           <Button onClick={handleCalculate} disabled={!leftBike || !rightBike}>
             Calculate
           </Button>
         </div>
       )}
 
-      {spacerCalculation && leftBike && rightBike && (
-        <ComparisonResults
-          leftBike={leftBike}
-          rightBike={rightBike}
-          calculation={spacerCalculation}
-        />
+      {!!showCalculation && (
+        <>
+          <ComparisonResults
+            leftBike={leftBike}
+            rightBike={rightBike}
+            calculation={spacerCalculation}
+          />
+          <div className="p-4">Here lives the visualization</div>
+        </>
       )}
 
       {(Boolean(leftBikeId) ||
         Boolean(rightBikeId) ||
         leftCustomBike !== null ||
         rightCustomBike !== null) && (
-        <div className="mt-8">
+        <div className="p-4">
           <Button variant="destructive" onClick={resetSelection}>
             Reset
           </Button>
