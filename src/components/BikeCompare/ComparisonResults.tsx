@@ -40,7 +40,7 @@ export const ComparisonResults = ({
       </p>
       <h3 className="font-semibold">Comparing rear center ratio</h3>
       <p className="text-sm">
-        With 200 lbs applied, {bikeWithMoreFrontWeight} would have{" "}
+        With 200 lbs applied to the BB, {bikeWithMoreFrontWeight} would have{" "}
         {weightDifference.toFixed(2)} lbs more on the front wheel
       </p>
     </div>
