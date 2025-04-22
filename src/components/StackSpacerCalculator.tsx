@@ -36,7 +36,7 @@ export function StackSpacerCalculator() {
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full max-w-sm">
+    <div className="flex flex-col gap-4 w-full max-w-sm p-4">
       <div className="flex flex-col gap-2">
         <label className="text-sm">Head Angle (degrees)</label>
         <Input

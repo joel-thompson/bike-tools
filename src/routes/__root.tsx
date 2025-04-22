@@ -10,18 +10,13 @@ export const Route = createRootRoute({
         </Link>
 
         <span className="mx-4 text-gray-300">|</span>
-        <Link to="/spacer-calculator" className="hover:text-blue-600">
-          Spacer Calculator
-        </Link>
-
-        {/* <span className="mx-4 text-gray-300">|</span>
-        <Link to="/stack-comparison" className="hover:text-blue-600">
-          Stack Comparison
-        </Link> */}
-
-        <span className="mx-4 text-gray-300">|</span>
         <Link to="/bike-compare" className="hover:text-blue-600">
           Bike Compare
+        </Link>
+
+        <span className="mx-4 text-gray-300">|</span>
+        <Link to="/spacer-calculator" className="hover:text-blue-600">
+          Spacer Calculator
         </Link>
       </nav>
       <Outlet />
