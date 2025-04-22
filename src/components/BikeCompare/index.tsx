@@ -82,7 +82,8 @@ const BikeCompare = () => {
             rightBike={rightBike}
             calculation={spacerCalculation}
           />
-          <div className="p-4">Here lives the visualization</div>
+          {/* TODO: Add visualization */}
+          {/* <div className="p-4">Here lives the visualization</div> */}
         </>
       )}
 
