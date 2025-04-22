@@ -298,6 +298,33 @@
       "wheelbase": 1337
     },
     {
+      "id": "Sentinel-V2-M",
+      "name": "Sentinel V2 M",
+      "stack": 622,
+      "reach": 450,
+      "headAngle": 63.6,
+      "chainstayLength": 440,
+      "wheelbase": 1233
+    },
+    {
+      "id": "Sentinel-V2-L",
+      "name": "Sentinel V2 L",
+      "stack": 631,
+      "reach": 476,
+      "headAngle": 63.6,
+      "chainstayLength": 440,
+      "wheelbase": 1263
+    },
+    {
+      "id": "Sentinel-V2-XL",
+      "name": "Sentinel V2 XL",
+      "stack": 640,
+      "reach": 501,
+      "headAngle": 63.6,
+      "chainstayLength": 440,
+      "wheelbase": 1292
+    },
+    {
       "id": "Transition-Spire-M",
       "name": "Transition Spire M",
       "stack": 619,
