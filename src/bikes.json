@@ -91,6 +91,42 @@
       "wheelbase": 1330.0
     },
     {
+      "id": "Pivot-Firebird-S",
+      "name": "Pivot Firebird S",
+      "stack": 612,
+      "reach": 450,
+      "headAngle": 64.6,
+      "chainstayLength": 430,
+      "wheelbase": 1206
+    },
+    {
+      "id": "Pivot-Firebird-M",
+      "name": "Pivot Firebird M",
+      "stack": 624,
+      "reach": 473,
+      "headAngle": 64.6,
+      "chainstayLength": 433,
+      "wheelbase": 1237
+    },
+    {
+      "id": "Pivot-Firebird-L",
+      "name": "Pivot Firebird L",
+      "stack": 633,
+      "reach": 493,
+      "headAngle": 64.6,
+      "chainstayLength": 437,
+      "wheelbase": 1266
+    },
+    {
+      "id": "Pivot-Firebird-XL",
+      "name": "Pivot Firebird XL",
+      "stack": 642,
+      "reach": 515,
+      "headAngle": 64.6,
+      "chainstayLength": 444,
+      "wheelbase": 1299
+    },
+    {
       "id": "Privateer-141-V1-P1",
       "name": "Privateer 141 V1 P1",
       "stack": 607,
