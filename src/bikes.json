@@ -458,6 +458,33 @@
       "headAngle": 63,
       "chainstayLength": 452,
       "wheelbase": 1322
+    },
+    {
+      "id": "Yeti-SB160-M",
+      "name": "Yeti SB160 M",
+      "stack": 620,
+      "reach": 465,
+      "headAngle": 64.0,
+      "chainstayLength": 439,
+      "wheelbase": 1246
+    },
+    {
+      "id": "Yeti-SB160-L",
+      "name": "Yeti SB160 L",
+      "stack": 625,
+      "reach": 485,
+      "headAngle": 64.0,
+      "chainstayLength": 441,
+      "wheelbase": 1270
+    },
+    {
+      "id": "Yeti-SB160-XL",
+      "name": "Yeti SB160 XL",
+      "stack": 635,
+      "reach": 510,
+      "headAngle": 64.0,
+      "chainstayLength": 443,
+      "wheelbase": 1302
     }
   ]
 }
