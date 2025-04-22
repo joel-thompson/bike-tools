@@ -1,6 +1,42 @@
 {
   "bikes": [
     {
+      "id": "Forbidden-Dreadnaught-V1-S",
+      "name": "Forbidden Dreadnaught V1 S",
+      "stack": 612,
+      "reach": 440,
+      "headAngle": 63.5,
+      "chainstayLength": 422,
+      "wheelbase": 1203
+    },
+    {
+      "id": "Forbidden-Dreadnaught-V1-M",
+      "name": "Forbidden Dreadnaught V1 M",
+      "stack": 621,
+      "reach": 462,
+      "headAngle": 63.5,
+      "chainstayLength": 436,
+      "wheelbase": 1244
+    },
+    {
+      "id": "Forbidden-Dreadnaught-V1-L",
+      "name": "Forbidden Dreadnaught V1 L",
+      "stack": 630,
+      "reach": 484,
+      "headAngle": 63.5,
+      "chainstayLength": 450,
+      "wheelbase": 1284
+    },
+    {
+      "id": "Forbidden-Dreadnaught-V1-XL",
+      "name": "Forbidden Dreadnaught V1 XL",
+      "stack": 639,
+      "reach": 506,
+      "headAngle": 63.5,
+      "chainstayLength": 464,
+      "wheelbase": 1325
+    },
+    {
       "id": "Forbidden-Dreadnaught-M-29",
       "name": "Forbidden Dreadnaught M 29",
       "stack": 628,
@@ -100,8 +136,8 @@
       "wheelbase": 1331
     },
     {
-      "id": "Santa-Cruz-Bullit-M",
-      "name": "Santa Cruz Bullit M",
+      "id": "Santa-Cruz-Bullit-v1-M",
+      "name": "Santa Cruz Bullit-v1 M",
       "stack": 621,
       "reach": 450,
       "headAngle": 64,
@@ -109,8 +145,8 @@
       "wheelbase": 1238.5
     },
     {
-      "id": "Santa-Cruz-Bullit-L",
-      "name": "Santa Cruz Bullit L",
+      "id": "Santa-Cruz-Bullit-v1-L",
+      "name": "Santa Cruz Bullit-v1 L",
       "stack": 630,
       "reach": 475,
       "headAngle": 64,
@@ -118,8 +154,8 @@
       "wheelbase": 1267.9
     },
     {
-      "id": "Santa-Cruz-Bullit-XL",
-      "name": "Santa Cruz Bullit XL",
+      "id": "Santa-Cruz-Bullit-v1-XL",
+      "name": "Santa Cruz Bullit-v1 XL",
       "stack": 648,
       "reach": 495,
       "headAngle": 64,
@@ -127,8 +163,8 @@
       "wheelbase": 1296.7
     },
     {
-      "id": "Santa-Cruz-Bullit-XXL",
-      "name": "Santa Cruz Bullit XXL",
+      "id": "Santa-Cruz-Bullit-v1-XXL",
+      "name": "Santa Cruz Bullit-v1 XXL",
       "stack": 670.4,
       "reach": 515,
       "headAngle": 64,
