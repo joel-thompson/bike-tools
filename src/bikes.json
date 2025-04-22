@@ -91,6 +91,42 @@
       "wheelbase": 1330.0
     },
     {
+      "id": "Privateer-141-V1-P1",
+      "name": "Privateer 141 V1 P1",
+      "stack": 607,
+      "reach": 440,
+      "headAngle": 64.5,
+      "chainstayLength": 434,
+      "wheelbase": 1197
+    },
+    {
+      "id": "Privateer-141-V1-P2",
+      "name": "Privateer 141 V1 P2",
+      "stack": 628,
+      "reach": 465,
+      "headAngle": 64.5,
+      "chainstayLength": 440,
+      "wheelbase": 1236
+    },
+    {
+      "id": "Privateer-141-V1-P3",
+      "name": "Privateer 141 V1 P3",
+      "stack": 637,
+      "reach": 485,
+      "headAngle": 64.5,
+      "chainstayLength": 446,
+      "wheelbase": 1266
+    },
+    {
+      "id": "Privateer-141-V1-P4",
+      "name": "Privateer 141 V1 P4",
+      "stack": 646,
+      "reach": 510,
+      "headAngle": 64.5,
+      "chainstayLength": 452,
+      "wheelbase": 1301
+    },
+    {
       "id": "Santa-Cruz-Bronson-V5-S",
       "name": "Santa Cruz Bronson V5 S",
       "stack": 625,
@@ -323,6 +359,78 @@
       "headAngle": 63.6,
       "chainstayLength": 440,
       "wheelbase": 1292
+    },
+    {
+      "id": "Sentinel-V3-S-29",
+      "name": "Sentinel V3 S 29",
+      "stack": 615,
+      "reach": 430,
+      "headAngle": 64.0,
+      "chainstayLength": 442,
+      "wheelbase": 1208
+    },
+    {
+      "id": "Sentinel-V3-S-MX",
+      "name": "Sentinel V3 S MX",
+      "stack": 618,
+      "reach": 426,
+      "headAngle": 63.5,
+      "chainstayLength": 440,
+      "wheelbase": 1208
+    },
+    {
+      "id": "Sentinel-V3-M-29",
+      "name": "Sentinel V3 M 29",
+      "stack": 621,
+      "reach": 455,
+      "headAngle": 64.0,
+      "chainstayLength": 442,
+      "wheelbase": 1237
+    },
+    {
+      "id": "Sentinel-V3-M-MX",
+      "name": "Sentinel V3 M MX",
+      "stack": 624,
+      "reach": 451,
+      "headAngle": 63.5,
+      "chainstayLength": 440,
+      "wheelbase": 1237
+    },
+    {
+      "id": "Sentinel-V3-L-29",
+      "name": "Sentinel V3 L 29",
+      "stack": 633,
+      "reach": 480,
+      "headAngle": 64.0,
+      "chainstayLength": 448,
+      "wheelbase": 1273
+    },
+    {
+      "id": "Sentinel-V3-L-MX",
+      "name": "Sentinel V3 L MX",
+      "stack": 636,
+      "reach": 476,
+      "headAngle": 63.5,
+      "chainstayLength": 446,
+      "wheelbase": 1271
+    },
+    {
+      "id": "Sentinel-V3-XL-29",
+      "name": "Sentinel V3 XL 29",
+      "stack": 642,
+      "reach": 505,
+      "headAngle": 64.0,
+      "chainstayLength": 448,
+      "wheelbase": 1302
+    },
+    {
+      "id": "Sentinel-V3-XL-MX",
+      "name": "Sentinel V3 XL MX",
+      "stack": 646,
+      "reach": 501,
+      "headAngle": 63.5,
+      "chainstayLength": 446,
+      "wheelbase": 1300
     },
     {
       "id": "Transition-Spire-M",
