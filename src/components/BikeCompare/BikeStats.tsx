@@ -1,5 +1,5 @@
 import { BikeDetails } from "@/types/bike";
-import { rearCenterRatio } from "@/utils/mathHelpers";
+import { frontCenterToRearCenterRatio } from "@/utils/mathHelpers";
 interface BikeStatsProps {
   bike: BikeDetails;
 }
@@ -15,8 +15,8 @@ export const BikeStats = ({ bike }: BikeStatsProps) => {
         <div>Chainstay: {bike.chainstayLength}mm</div>
         <div>Wheelbase: {bike.wheelbase}mm</div>
         <div>
-          Rear Center to wheelbase ratio:{" "}
-          {rearCenterRatio(bike.chainstayLength, bike.wheelbase)}
+          Front center to rear center ratio:{" "}
+          {frontCenterToRearCenterRatio(bike.chainstayLength, bike.wheelbase)}
         </div>
       </div>
     </div>

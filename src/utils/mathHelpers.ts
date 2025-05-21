@@ -1,5 +1,9 @@
-export const rearCenterRatio = (chainstayLength: number, wheelbase: number) => {
-  return ((chainstayLength / wheelbase) * 100).toFixed(2) + "%";
+export const frontCenterToRearCenterRatio = (
+  rearCenter: number,
+  wheelbase: number
+) => {
+  const frontCenter = wheelbase - rearCenter;
+  return (frontCenter / rearCenter).toFixed(3);
 };
 
 export const calculateFrontWeightDistribution = ({
